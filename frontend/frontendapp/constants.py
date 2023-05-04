@@ -10,7 +10,10 @@ MOVIES_TABLE_COLUMNS = [
 
 MOVIES_TABLE_HIDDEN_COLUMNS = [
     "id",
-    "image_path",
+    "image_url",
+    "plot",
+    "cast",
+    "genre",
 ]
 
 MOVIES_TABLE_PAGE_SIZE = 15
