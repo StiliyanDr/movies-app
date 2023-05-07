@@ -3,6 +3,13 @@ from pydantic.error_wrappers import ValidationError
 
 
 def define_error_handlers_for(app):
+    @app.errorhandler(400)
+    def bad_request(e):
+        """
+        An error-handler to ensure that 400 errors are returned as JSON.
+        """
+        return (jsonify(error=str(e)), 400)
+
     @app.errorhandler(404)
     def resource_not_found(e):
         """
