@@ -90,9 +90,17 @@ def _transform(movies):
 
 
 def _transform_fields_of(m):
+    m["plot"] = m.get("plot", "")
+    m["genres"] = ", ".join(m.get("genres", []))
+    m["cast"] = ", ".join(m.get("cast", []))
+    m["poster"] = m.get("poster", "")
+    m["title"] = m.get("title", "")
+    m["year"] = m.get("year", 0)
+    m["length"] = m.get("length", 0)
+
     imdb = m.pop("imdb")
-    m["rating"] = f"{imdb['rating']} ({imdb['votes']})"
-    m["genre"] = ", ".join(m["genre"])
-    m["cast"] = ", ".join(m["cast"])
+    m["rating"] = (f"{imdb['rating']} ({imdb['votes']})"
+                   if imdb is not None
+                   else "")
 
     return m
