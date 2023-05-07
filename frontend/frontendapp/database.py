@@ -1,15 +1,19 @@
+import json
 import logging
 import os
 import time
+from types import MappingProxyType
 
 import requests
 
 
-_GENRES_URL = f"{os.environ['DB_SERVICE']}/movies/genres"
+_GENRES_URL = rf"http://{os.environ['DB_SERVICE']}/movies/genres"
 
-_MOVIES_LISTING_URL = f"{os.environ['DB_SERVICE']}/movies/all"
+_MOVIES_LISTING_URL = rf"http://{os.environ['DB_SERVICE']}/movies/all"
 
 _MAX_RETRIES = 4
+
+_HEADERS = MappingProxyType({"Content-Type": "application/json"})
 
 
 def list_movie_genres():
@@ -20,8 +24,11 @@ def list_movie_genres():
 
 
 def _do_request(url, params=None, default=None):
+    if (params is not None):
+        params = json.dumps(params)
+
     for i in range(1, _MAX_RETRIES + 1):
-        response = requests.get(url, params)
+        response = requests.get(url, data=params, headers=_HEADERS)
 
         if (response.status_code == requests.codes.ok):
             return response.json()
