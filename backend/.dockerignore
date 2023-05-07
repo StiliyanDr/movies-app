@@ -1,0 +1,5 @@
+.venv/
+run.bat
+run.sh
+docker.md
+envs
