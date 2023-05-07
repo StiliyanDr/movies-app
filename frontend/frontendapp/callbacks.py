@@ -50,12 +50,12 @@ def define_callbacks_for(app):
             m = movies[selected_movies[0]]
 
             return (
-                m["image_url"],
+                m["poster"],
                 m["title"],
                 str(m["year"]),
                 str(m["length"]),
                 m["rating"],
-                m["genre"],
+                m["genres"],
                 m["cast"],
                 m["plot"]
             )
