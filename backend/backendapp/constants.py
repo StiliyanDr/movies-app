@@ -14,3 +14,7 @@ PAGINATION_SORT = (
     ("year", pymongo.DESCENDING),
     ("_id", pymongo.ASCENDING),
 )
+
+DESCENDING_YEAR_SORT = (
+    ("year", pymongo.DESCENDING),
+)

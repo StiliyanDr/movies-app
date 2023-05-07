@@ -146,4 +146,6 @@ def find_movies():
     """
     cursor = _find_movies_for(request)
 
-    return _to_json_list(cursor)
+    return _to_json_list(
+        cursor.sort(const.DESCENDING_YEAR_SORT)
+    )
