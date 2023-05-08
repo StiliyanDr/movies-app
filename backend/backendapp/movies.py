@@ -16,7 +16,8 @@ bp = Blueprint("movies", __name__, url_prefix="/movies")
 def list_genres():
     db = get_db()
 
-    return db.movies.distinct("genres")
+    return [g for g in db.movies.distinct("genres")
+            if isinstance(g, str)]
 
 
 @bp.route("/")
