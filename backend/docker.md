@@ -14,5 +14,11 @@ Open a terminal and run the following commands.
 
 # Running on a development Flask server and
 # with 'dev' secret key, not really a production server
-(movies-app/backend) $ docker run --name backend -d -p 5000:5000 --env-file envs movies-app-backend:vN
+# Note: network already created with
+#   docker network create my-net
+(movies-app/backend) $ docker run --name backend -d \
+                                  -p 5000:5000 \
+                                  --env-file envs \
+                                  --network my-net \
+                                  movies-app-backend:vN
 ```
