@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-cm
+  labels:
+    app: movies-app
+    tier: backend
+data:
+  FLASK_APP: "backendapp"
+  FLASK_RUN_PORT: "5000"

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deploy
+  labels:
+    app: movies-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: movies-app
+      tier: frontend
+  template:
+    metadata:
+      name: frontend-pod
+      labels:
+        app: movies-app
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: stiliyandr/movies-app-frontend:v1
+        envFrom:
+          - configMapRef:
+              name: frontend-cm
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"

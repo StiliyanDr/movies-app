@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-cm
+  labels:
+    app: movies-app
+    tier: frontend
+data:
+  DB_SERVICE: "backend-svc:5040"
+  DASH_PORT: "8080"
+  DASH_HOST: "0.0.0.0"
+  DEBUG: "False"

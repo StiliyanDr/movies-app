@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-sec
+  labels:
+    app: movies-app
+    tier: backend
+data:
+  MONGO_URI: enc-uri
