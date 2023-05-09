@@ -11,6 +11,20 @@ The app has two components:
 
 The two components are built into Docker images and deployed to a Kubernetes cluster.  
 
+## Purpose of the app
+
+Since the idea behind this app is containerising and deploying and application to a Kubernetes cluster, the app itself is very simple and involves some compomises. For example, both components are deployed as microservices running "development" servers which are not at all suitable for production environments  
+
+## What the app looks like
+
+The app's homepage has a few filters such as genres and movie length (in minutes). They are followed by a table of movies matching the filters.  
+
+![home](pics/home.PNG)  
+
+A movie from the table can be selected and viewed, showing its poster and various information such as it title, year, cast and plot summary.  
+
+![movie-view](pics/movie-view.PNG)    
+
 ## Project structure
 
 This repository consists of:
@@ -21,6 +35,4 @@ This repository consists of:
   JSON files containing example data used by the app. These can be imported into a MongoDB deployment
 * *iac*  
   Definition files used to deploy the app to a Kubernetes cluster. There is also a Markdown file containing example commands for the deployment
-
-**NOTE**: Since the idea behind this app is containerising and deploying and application to a Kubernetes cluster, the app itself is very simple and involves some compomises. For example, both components are deployed as microservices running "development" servers which are not at all suitable for production environments  
 
