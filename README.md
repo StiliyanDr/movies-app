@@ -5,7 +5,7 @@ A very simple movies database app built with MongoDB, Python (Flask and Plotly D
 The app has two components:  
 
 * frontend  
-  A GUI built with Plotly Dash that lets users search for movies using various filters. Users can also select a movie and view some information about it such as its full title, cast and plot summary  
+  A GUI built with Plotly Dash that lets users search for movies using various filters. Users can also select a movie and view some information about it such as its full title, cast and plot summary. Comments are also available while viewing a movie  
 * backend  
   An HTTP server built with Flask that serves the movies data stored in a MongoDB database
 
@@ -24,6 +24,10 @@ The app's homepage has a few filters such as genres and movie length (in minutes
 A movie from the table can be selected and viewed, showing its poster and various information such as it title, year, cast and plot summary.  
 
 ![movie-view](pics/movie-view.PNG)    
+
+The **Comments** tab makes it possible to view comments and submit new ones.  
+
+![comments](pics/comments.PNG)  
 
 ## Project structure
 
