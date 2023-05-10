@@ -1,6 +1,7 @@
 from flask import Flask
 
 from backendapp import db
+from backendapp.comments import bp as comments_bp
 from backendapp.errorhandling import define_error_handlers_for
 from backendapp.movies import bp as movies_bp
 
@@ -18,6 +19,7 @@ def create_app(test_config=None,
         app.config.from_mapping(test_config)
 
     app.register_blueprint(movies_bp)
+    app.register_blueprint(comments_bp)
     db.init_app(app)
     define_error_handlers_for(app)
 
