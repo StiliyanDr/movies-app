@@ -7,9 +7,13 @@ from types import MappingProxyType
 import requests
 
 
-_GENRES_URL = rf"http://{os.environ['DB_SERVICE']}/movies/genres"
+_DB_SERVICE_URL = rf"http://{os.environ['DB_SERVICE']}"
 
-_MOVIES_LISTING_URL = rf"http://{os.environ['DB_SERVICE']}/movies/all"
+_GENRES_URL = rf"{_DB_SERVICE_URL}/movies/genres"
+
+_MOVIES_LISTING_URL = rf"{_DB_SERVICE_URL}/movies/all"
+
+_COMMENTS_URL = rf"{_DB_SERVICE_URL}/comments/"
 
 _MAX_RETRIES = 4
 
@@ -23,12 +27,14 @@ def list_movie_genres():
     return _do_request(_GENRES_URL, default=[])
 
 
-def _do_request(url, params=None, default=None):
+def _do_request(url, params=None, default=None, method_name="get"):
     if (params is not None):
         params = json.dumps(params)
 
+    method = getattr(requests, method_name)
+
     for i in range(1, _MAX_RETRIES + 1):
-        response = requests.get(url, data=params, headers=_HEADERS)
+        response = method(url, data=params, headers=_HEADERS)
 
         if (response.status_code == requests.codes.ok):
             return response.json()
@@ -104,3 +110,41 @@ def _transform_fields_of(m):
                    else "")
 
     return m
+
+
+def list_comments_for(movie_id):
+    """
+    Lists comments for a specific movie.
+
+    :param movie_id: a str - the hex string of the movie's _id value.
+    :returns: a list of dicts - JSON representations of the comments.
+    """
+    return _do_request(
+        f"{_COMMENTS_URL}{movie_id}",
+        default=[]
+    )
+
+
+def submit_comment(username, new_comment, movie_id):
+    """
+    :param username: a str - the name of the user submitting the
+    comment.
+    :param new_comment: a str - the comment itself.
+    :param movie_id: a str - the hex value of the movie's _id value.
+    :returns: a str or None. If the comment is successfully sumbitted,
+    the return value is a str representing the date and time the comment
+    was submitted. Otherwise, None is returned.
+    """
+    comment = _do_request(
+        _COMMENTS_URL,
+        {
+            "name": username,
+            "text": new_comment,
+            "movie_id": movie_id
+        },
+        method_name="post"
+    )
+
+    return (comment["date"]
+            if (comment is not None)
+            else None)
