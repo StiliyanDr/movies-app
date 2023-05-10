@@ -3,6 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
+from backendapp import constants as const
 from backendapp.models.objectid import PydanticObjectId
 
 
@@ -23,7 +24,7 @@ class Comment(BaseModel):
         return {
             "name": self.name,
             "text": self.text,
-            "date": str(self.date),
+            "date": self.date.strftime(const.COMMENTS_DATE_FORMAT),
             "movie_id": str(self.movie_id),
             "_id": str(self.id),
         }
