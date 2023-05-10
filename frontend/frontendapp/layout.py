@@ -183,7 +183,14 @@ def _movie_modal_layout_for(dash_app):
 
 
 def _modal_body_layout_for(dash_app):
-    return html.Div([
+    return dbc.Tabs([
+        _movie_tab_layout_for(dash_app),
+        _comments_tab_layout_for(dash_app),
+    ])
+
+
+def _movie_tab_layout_for(dash_app):
+    return dbc.Tab([
         dbc.Row(dbc.Col(html.Img(id="movie-poster",
                                  alt="No poster available"))),
         dbc.Row([
@@ -210,4 +217,48 @@ def _modal_body_layout_for(dash_app):
             dbc.Col(html.B("Plot:"), width="auto"),
             dbc.Col(html.P("", id="movie-plot")),
         ])
+    ],
+        label="Movie"
+    )
+
+
+def _comments_tab_layout_for(dash_app):
+    return dbc.Tab([
+        dbc.Row(dbc.Col(dbc.Input(
+            id="username-input",
+            placeholder="Username...",
+            type="text",
+            size="small"
+        ))),
+        dbc.Row(dbc.Col(dcc.Textarea(
+            id="comment-textarea",
+            value="",
+            placeholder="Comment...",
+            style={
+                "width": "100%",
+                "height": 150,
+            },
+        ))),
+        dbc.Row(dbc.Col(dbc.Button(
+            ["Submit"],
+            id="submit-comment-button",
+            color="secondary",
+        ))),
+        dbc.Row(dbc.Col(html.Hr())),
+        dbc.Row(dbc.Col(dbc.ListGroup(
+            [],
+            id="comments-list-group"
+        )))
+    ],
+        label="Comments"
+    )
+
+
+def comment_layout_for(username, text, date):
+    return dbc.ListGroupItem([
+        html.B(username),
+        html.Br(),
+        html.P(date),
+        html.Br(),
+        html.P(text)
     ])
