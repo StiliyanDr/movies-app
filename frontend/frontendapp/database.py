@@ -3,6 +3,7 @@ import logging
 import os
 import time
 from types import MappingProxyType
+import urllib.parse
 
 import requests
 
@@ -120,7 +121,7 @@ def list_comments_for(movie_id):
     :returns: a list of dicts - JSON representations of the comments.
     """
     return _do_request(
-        f"{_COMMENTS_URL}{movie_id}",
+        f"{_COMMENTS_URL}{urllib.parse.quote(movie_id)}",
         default=[]
     )
 
